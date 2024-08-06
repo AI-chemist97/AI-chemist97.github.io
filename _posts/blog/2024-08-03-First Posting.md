@@ -1,17 +1,17 @@
 ---
 title: "드디어 성공한 Chirpy thema git 블로그"
 excerpt: "2024년 8월에 성공한 윈도우 성공자의 기록"
-name: AI_chemist
-writer: AI_chemist
-categories: [블로그, Git 블로그]
+name: AI_chemist97
+writer: AI_chemist97
+categories: [blog]
 tags:
   - [Git Blog, jekyll theme, Github, Git, markdown, Posting]
 
 toc: true
 toc_sticky: true
 
-date: 2024-08-06
-last_modified_at: 2024-08-06
+date: 2024-08-06 20:42:00
+last_modified_at: 2024-08-06 20:42:00
 
 # --- 아래 부터 content
 ---
