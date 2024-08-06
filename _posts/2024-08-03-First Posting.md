@@ -10,8 +10,8 @@ tags:
 toc: true
 toc_sticky: true
 
-date: 2024-08-06 20:42:00
-last_modified_at: 2024-08-06 20:42:00
+date: 2024-08-06 20:42:00 +0900
+last_modified_at: 2024-08-06 20:42:00 +0900
 
 # --- 아래 부터 content
 ---
