@@ -17,7 +17,7 @@ last_modified_at: 2024-08-06
 ---
 # git blog 만들기 성공 2024-08-06
 드디어 7일만에 Chirpy thema를 적용한 깃 블로그 만들기에 성공했습니다..! 눈물이 줄줄 나오네요.
-![firstimage](assets\img\first_image.png)
+<!-- ![firstimage](assets\img\first_image.png) -->
 눈물이 줄줄 나오는 첫 번째 사진 맨날 
 <!-- ![failimage](../assets/img/fail.png) -->
 ```html
