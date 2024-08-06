@@ -17,7 +17,7 @@ last_modified_at: 2024-08-06
 ---
 # git blog 만들기 성공 2024-08-06
 드디어 7일만에 Chirpy thema를 적용한 깃 블로그 만들기에 성공했습니다..! 눈물이 줄줄 나오네요.
-![firstimage](../assets/img/first_image.png)
+![firstimage](../../assets/img/first_image.png)
 눈물이 줄줄 나오는 첫 번째 사진 맨날 
 <!-- ![failimage](../assets/img/fail.png) -->
 ```html
@@ -27,8 +27,7 @@ last_modified_at: 2024-08-06
 
 제가 참고한 블로그는 여러개가 있는데 그 중 성공의 핵심은 역시 chirpy 기본 튜토리얼인 
 ## 일단 제일 중요한 블로그는 바로
-[chirpy 블로그 튜토리얼]이라는 글인데 아직 잘 안된다.
-<!-- (./2019-08-09-getting-started.md) -->
+[chirpy 블로그 튜토리얼](https://ai-chemist97.github.io/posts/getting-started/)
 이 글과
 
 세팅에 도움을 준
