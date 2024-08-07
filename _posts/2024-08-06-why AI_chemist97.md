@@ -1,11 +1,11 @@
 ---
 title: "왜 이름이 AI_chemist97일까"
 excerpt: "맥시멀리스트의 닉네임 정하기"
-name: AI_chemist97
-writer: AI_chemist97
+name: AI-chemist97
+writer: AI-chemist97
 categories: [잡담]
 tags:
-  - [Git Blog, jekyll theme, Github, Git, markdown, Posting, AI_chemist97]
+  - [Git Blog, jekyll theme, Github, Git, markdown, Posting, AI-chemist97]
 
 toc: true
 toc_sticky: true
