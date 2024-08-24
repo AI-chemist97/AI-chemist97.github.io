@@ -41,14 +41,7 @@
       {% endfor %}
     </ul>
   </nav>
-<!-- Counter Badge -->
-<div class="counter-badge">
-      <a href="https://hits.seeyoufarm.com">
-            <img 
-            src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fai-chemist97%2Fhit-counter&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
-            </a>
-  </div>
-  <!-- .sidebar-badge -->
+
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
       <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle">
@@ -62,7 +55,7 @@
 
     {% for entry in site.data.contact %}
       {% case entry.type %}
-        {% when 'github' %}
+        {% when 'github', 'twitter' %}
           {%- capture url -%}
             https://{{ entry.type }}.com/{{ site[entry.type].username }}
           {%- endcapture -%}
@@ -71,7 +64,11 @@
           {%- capture url -%}
             javascript:location.href = 'mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@')
           {%- endcapture -%}
-
+        {% when 'rss' %}
+          {% assign url = '/feed.xml' | relative_url %}
+        {% else %}
+          {% assign url = entry.url %}
+      {% endcase %}
 
       {% if url %}
         <a
