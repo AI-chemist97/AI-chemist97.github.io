@@ -28,8 +28,8 @@ url: "https://AI-chemist97.github.io"
 github:
   username: AI-chemist97 # change to your github username
 
-twitter:
-  username: # change to your twitter username
+# twitter:
+#   username: # change to your twitter username
 
 social:
   # Change to your full name.
@@ -38,8 +38,8 @@ social:
   email: bdjg1029@gmail.com # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username # change to your twitter homepage
-    - https://github.com/username # change to your github homepage
+    # - https://twitter.com/username # change to your twitter homepage
+    - https://github.com/AI-chemist97 # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
@@ -47,11 +47,11 @@ social:
 # Site Verification Settings
 webmaster_verifications:
   google: # fill in your Google verification code
-  bing: # fill in your Bing verification code
-  alexa: # fill in your Alexa verification code
-  yandex: # fill in your Yandex verification code
-  baidu: # fill in your Baidu verification code
-  facebook: # fill in your Facebook verification code
+  # bing: # fill in your Bing verification code
+  # alexa: # fill in your Alexa verification code
+  # yandex: # fill in your Yandex verification code
+  # baidu: # fill in your Baidu verification code
+  # facebook: # fill in your Facebook verification code
 
 # ↑ --------------------------
 # The end of `jekyll-seo-tag` settings
