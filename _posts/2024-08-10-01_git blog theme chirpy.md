@@ -46,9 +46,9 @@ git blog는 이전에도 몇 번 추천을 받았는데 추천해주는 사람�
     이렇게 지은상태로 fork 하는 방법이다.
 
 나는 이 2가지 방법을 다 사용해 봤었는데 결국 성공한 방법은 2번이었기 때문에 (지금 1번을 하면 성공할 자신이 있는데, 취업하고 시간나면 테마를 바꿀 것이다. 다른거 마음에 든다.)
-    ![fork](image.png)
+    ![fork](../assets/img/240810/01_fork.png)
     마우스 커서가 있는 부분을 클릭하면 된다.
-    ![ropository](image-1.png)
+    ![ropository](../assets/img/240810/02_repo.png)
     이미 만들어 두었기 때문에 나는 내 username.github.io로 repository를 만들 수 없다고 뜬다.
     다음과 같이 만들고 public 으로 설정해 준다.
 
