@@ -3,7 +3,7 @@ title: "드디어 성공한 Chirpy thema git 블로그"
 excerpt: "2024년 8월에 성공한 윈도우 성공자의 기록"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [blog]
+categories: [잡담]
 tags:
   - [Git Blog, jekyll theme, Github, Git, markdown, Posting]
 
