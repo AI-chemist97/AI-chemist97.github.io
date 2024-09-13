@@ -6,7 +6,7 @@ writer: AI-chemist97
 categories: [잡담]
 tags:
   - [Git Blog, jekyll theme, Github, Git, markdown, ssafy, AI-chemist97]
-
+published: false
 toc: true
 toc_sticky: true
 
