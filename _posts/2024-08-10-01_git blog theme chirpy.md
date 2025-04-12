@@ -3,9 +3,8 @@ title: "01_깃 블로그 chirpy theme 만들기"
 excerpt: "chirpy 테마 적용하기"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [base]
-tags:
-  - [Git Blog, jekyll theme, Github, Git, markdown, ssafy, AI-chemist97]
+categories: [diary]
+tags: [base]
 
 toc: true
 toc_sticky: true

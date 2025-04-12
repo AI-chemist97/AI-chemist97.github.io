@@ -3,9 +3,8 @@ title: "컨벤션"
 excerpt: "코딩 컨벤션"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [base]
-tags:
-  - [Git Blog, jekyll theme, Github, Git, markdown, ssafy, AI-chemist97]
+categories: [diary]
+tags: [base]
 
 toc: true
 toc_sticky: true

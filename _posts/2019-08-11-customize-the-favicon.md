@@ -2,8 +2,10 @@
 title: Customize the Favicon
 author: cotes
 date: 2019-08-11 00:34:00 +0800
-categories: [Tutorial]
-tags: [favicon]
+categories: [diary]
+tags: [tutorial]
+
+published: false
 ---
 
 The [favicons](https://www.favicon-generator.org/about/) of [**Chirpy**](https://github.com/cotes2020/jekyll-theme-chirpy/) are placed in the directory `assets/img/favicons/`{: .filepath}. You may want to replace them with your own. The following sections will guide you to create and replace the default favicons.
@@ -25,10 +27,10 @@ And then copy the remaining image files (`.PNG`{: .filepath} and `.ICO`{: .filep
 
 The following table will help you understand the changes to the favicon files:
 
-| File(s)             | From Online Tool                  | From Chirpy |
-|---------------------|:---------------------------------:|:-----------:|
-| `*.PNG`             | ✓                                 | ✗           |
-| `*.ICO`             | ✓                                 | ✗           |
+| File(s) | From Online Tool | From Chirpy |
+| ------- | :--------------: | :---------: |
+| `*.PNG` |        ✓         |      ✗      |
+| `*.ICO` |        ✓         |      ✗      |
 
 <!-- markdownlint-disable-next-line -->
 >  ✓ means keep, ✗ means delete.

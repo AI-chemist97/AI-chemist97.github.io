@@ -3,9 +3,9 @@ title: "1일 1커밋 찍기"
 excerpt: "잔디 심는 건 어렵다"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [잡담]
+categories: [diary]
 tags:
-  - [Git Blog, jekyll theme, Github, Git, markdown, ssafy, AI-chemist97]
+  - [잡담]
 published: false
 toc: true
 toc_sticky: true

@@ -3,9 +3,9 @@ title: "급하게 github repository private로 바꾸기"
 excerpt: "싸피는 무서웡"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [git]
+categories: [study]
 tags:
-  - [Git Blog, jekyll theme, Github, java, markdown, ssafy, AI-chemist97]
+  - [git]
 
 published: true
 toc: true
