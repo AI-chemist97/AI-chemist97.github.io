@@ -3,7 +3,7 @@ title: "컨벤션"
 excerpt: "코딩 컨벤션"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [diary]
+categories: [diary, base]
 tags: [base]
 
 toc: true

@@ -3,7 +3,7 @@ title: "1일 1커밋 찍기"
 excerpt: "잔디 심는 건 어렵다"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [diary]
+categories: [diary,잡담]
 tags:
   - [잡담]
 published: false

@@ -3,7 +3,7 @@ title: "01_깃 블로그 chirpy theme 만들기"
 excerpt: "chirpy 테마 적용하기"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [diary]
+categories: [diary, base]
 tags: [base]
 
 toc: true
