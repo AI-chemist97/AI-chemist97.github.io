@@ -2,7 +2,7 @@
 layout: post
 title:  "Welcome to Jekyll!"
 date:   2024-08-02 23:19:22 +0900
-categories: [diary]
+categories: [diary, tutorial]
 tags: [tutorial]
 
 published: false

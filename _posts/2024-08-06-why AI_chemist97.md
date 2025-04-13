@@ -3,7 +3,7 @@ title: "왜 이름이 AI_chemist97일까"
 excerpt: "맥시멀리스트의 닉네임 정하기"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [diary]
+categories: [diary, 잡담]
 tags: [잡담]
 
 toc: true
