@@ -3,9 +3,9 @@ title: "[수학기초]기초 통계 개념 공부"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [study,수학]
+categories: [portfoilio, frontend]
 tags:
-  - [수학기초]
+  - [react]
 
 published: false
 toc: true
