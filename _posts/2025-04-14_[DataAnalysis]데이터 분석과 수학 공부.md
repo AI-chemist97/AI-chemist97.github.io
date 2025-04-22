@@ -1,11 +1,11 @@
 ---
-title: "[DataAnalysis]데이터 분석과 수학 공부"
+title: "[Portfolio]웹과 수학 공부"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [diary,DataAnalysis]
+categories: [diary, Portfolio]
 tags:
-  - [DataAnalysis]
+  - []
 
 published: false
 toc: true
@@ -15,7 +15,7 @@ date: 2025-04-14 12:19:00 +0900
 last_modified_at: 2025-04-14 14:01:00 +0900
 # --- 아래 부터 content
 ---
-# 데이터 분석을 위한 수학 공부
+# 웹과 수학 공부
 데이터 분석을 통해 입자의 합성과 특성을 예측하고 실험의 재현성을 높이면서도 예측한 반응을 통해 실험에 소요되는 비용과 시간을 줄이는 것은 오래전부터 내 관심사였다.
 대학에서 화학을 전공하고 대학원에서 재료화학공학을 전공하며 실험과 분석에 많은 시간을 보냈고, 실험을 진행하면서 투여하는 시약의 양 가열 시간과 온도와 같은 여러 변인들을 통제하며 문제해결의 즐거움을 알게 되었다.
 
