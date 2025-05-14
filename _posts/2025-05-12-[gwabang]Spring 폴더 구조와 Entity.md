@@ -36,6 +36,9 @@ onetomany manytoone...
 우선 member 의 경우 entity 폴더 내부에 Member.java
 를 생성해야한다.
 
+📂 entity<br>
+ └── 📄 Member.java
+
 ```java
 
 @Getter
@@ -48,10 +51,77 @@ public class Member {
 
 };
 ```
-이런식으로 시작해야한다
-위에 달린건 어노테이션 annotation이라고 하는데 클래스에 코드를 자동 생성하거나 매핑을 도와준다
-@Getter는 모든 필드에 대해 getter 메서드를 자동으로 생성해주고
-@Builder는 객체를 만들때 new 대신 ClassName.builder().field().build() 형태로 사용할 수 있게 한다.(어렵다)
+### 위에 달린건 뭐지?
+위에 달린건 어노테이션 annotation이라고 하는데 **코드에 정보를 추가해서 자동으로 기능을 붙이는 것**이다.
+
+- @Getter
+모든 필드에 대해 getter 메서드를 자동으로 만들어준다.
+
+getName(), getEmail() 이런 거 일일이 안 만들어도 됨.
+
+- @Builder
+객체를 new Member()로 만드는 게 아니라,
+```java
+Member.builder()
+       .name("홍길동")
+       .email("test@example.com")
+       .build();
+```
+이런 식으로 만들 수 있게 해주는 패턴.
+어려워 보일 수 있는데, 나중에 보면 이게 더 깔끔함. 익숙해지면 편할수도!
+
+- @AllArgsConstructor
+모든 필드를 파라미터로 받는 생성자를 만들어줍니다.
+
+```java
+new Member(1L, "홍길동", "test@example.com");
+✅ @NoArgsConstructor(access = AccessLevel.PROTECTED)
+```
+기본 생성자 (아무 파라미터도 없는 생성자)를 만들되,
+외부에서는 못 쓰고 JPA가 내부에서 사용할 수 있게 protected로 제한합니다.
+
+- JPA에서는 기본 생성자 필수기 때문에 그냥 필요하다 생각하면 된다.
+    - JPA는 뭔가?
+      - **JPA (Java Persistence API)**는
+자바에서 객체(Object)와 데이터베이스(Table)를 연결(매핑)해주는 표준 기술.
+쉽게 말해서 우리(개발자)가 클래스 (ex. Member, Category, Comment 등)를 만드는데 실제 데이터는 DB의 테이블에 들어감 (member, category 등)
+이때 
+클랜스: 테이블
+필드: 컬럼
+이런식으로 자동으로 연결되고
+SQL 없이도 CRUD(조회, 저장 삭제 등) 하게 해주는 게 바로 JPA!
+```java
+Member member = new Member(1L, "홍길동");
+memberRepository.save(member);  // INSERT 쿼리 안 써도 자동으로 저장됨
+
+```
+이렇게!
+
+
+- @Entity
+이 클래스는 JPA가 관리할 테이블이라는 뜻.
+
+즉, 이걸 DB에 저장하거나 불러올 수 있다는 의미.
+
+- @Table(name = "member")
+DB에서 실제로 사용할 테이블 이름을 지정.
+
+테이블 이름이 member라는 뜻.
+
+
+---
+## 마무리
+이렇게 해서 Member나 다른 엔티티 기본 틀을 만들었다.
+JPA를 쓴다면 필수로 들어가는 기본 세팅이라고 기억해두기.
+
+다음 글에서는 이 Member 엔티티와 다른 엔티티 간의 관계,
+즉 @OneToMany, @ManyToOne 같은 관계 매핑을 넣어주면서 정리할 것.
+실제로 어떻게 조인되는지 보면서 감을 잡겠다!
+
+화이팅!!
+
+
+
 
 
 
