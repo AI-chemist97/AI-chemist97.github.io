@@ -39,6 +39,13 @@ onetomany manytoone...
 📂 entity<br>
  └── 📄 Member.java
 
+* src/main/java는 자바 코드 넣는곳
+* src/main/resources 설정파일, HTML, 정적 리소스 넣는곳
+* application.yml or application.properties -> 환경 설정
+* static/ -> 정적 파일 (JS,CSS, 이미지)
+* templates/ -> Thymeleaf 같은 HTML 템플릿 (MVC에서 사용)
+* banner.txt -> Spring Boot 실행 시 나오는 배너 변경
+
 ```java
 
 @Getter
@@ -75,10 +82,20 @@ Member.builder()
 
 ```java
 new Member(1L, "홍길동", "test@example.com");
-✅ @NoArgsConstructor(access = AccessLevel.PROTECTED)
 ```
-기본 생성자 (아무 파라미터도 없는 생성자)를 만들되,
+```java
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+```
+기본 생성자 (아무 파라미터도 없는 생성자, `public Member() {}`)를 만들되,
 외부에서는 못 쓰고 JPA가 내부에서 사용할 수 있게 protected로 제한합니다.
+생성자의 접근 제어자를 protected로 제한한다는 의미
+
+
+접근제어자 비교
+* public : 누구나 사용 가능
+* protected : 같은 패키지나 상속한 클래스에서만 가능
+* private : 자기 자신 클래스 내부에서만 사용 가능
+==> 기본 생성자를 자동 생성해주고 아무나 못쓰고 막고싶을때, jpa에서 엔티티 안전하게 설계할 때 자주 쓰는 방식
 
 - JPA에서는 기본 생성자 필수기 때문에 그냥 필요하다 생각하면 된다.
     - JPA는 뭔가?
@@ -107,6 +124,14 @@ memberRepository.save(member);  // INSERT 쿼리 안 써도 자동으로 저장�
 DB에서 실제로 사용할 테이블 이름을 지정.
 
 테이블 이름이 member라는 뜻.
+만약 이름을 바꾸고 싶다면 여기서 변경
+
+- @Id
+기본키 설정으로 DB 테이블에는 PK(Primary Key, 기본키: 이 레코드는 이 값 하나로 유일하게 식별됨)값이 무조건 필요하니까 
+    * @GeneratedValue(strategy = GenetationType.IDENTITY)
+        *GenetationType은 PK를 자동생성하는 전략의 종류로 IDENTITY는 DB가 직접 auto-increment 처리 해 주는 것이다.
+- @Column(nullable = false, unique = true)
+안써도 되는조건인데 조건 걸고 싶으면 쓰는것 null안되고 중복 안된다는 의미의 조건임
 
 
 ---
