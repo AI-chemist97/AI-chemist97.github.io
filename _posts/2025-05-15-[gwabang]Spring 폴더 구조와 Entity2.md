@@ -7,7 +7,7 @@ categories: [Portfolio,gwabang]
 tags:
   - [gwabang]
 
-published: false
+# published: false
 toc: true
 toc_sticky: true
 
@@ -40,8 +40,32 @@ public class Article {
 여기서는 객체가 Article이기 때문에 Article 기준으로는 게시글 한개에 댓글 여러개
 ->  그래서 OneToMany다
 
+Comment와 Article은 반대로 N:1 의 관계
+여러 댓글이 하나의 게시글을 참조
+```java
+@Entity
+public class Comment {
 
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
+}
+```
+댓글 입장에서 댓글 여러개지만 게시글은 한개
+관계 설정 어노테이션 달아줄때 순서가 본인to관계있는객체
+요 순서로 가는것같다
+
+@JoinColumn(name="컬럼명")으로 외래키(FK)지정
+외래키는 다른 테이블의 기본키를 참조하는 키 데이터 무결성을 보장하는데 중요한 역할
+다른 테이블의 행을 가리키는 값
+(ex)member_id는 Member테이블의 id를 참조하는 외래키
+이렇게 해주면 자동으로 멤버의 기본키(PK)인 id를 참조해서 알아서 외래키로 설정되어 member_id가 되는 것!
 
 
 
