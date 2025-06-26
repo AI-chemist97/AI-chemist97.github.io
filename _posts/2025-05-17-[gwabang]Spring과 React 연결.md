@@ -26,6 +26,7 @@ react 프로젝트를 시작해보겠다
     * 프론트엔드 디렉토리 이름: `frontend`
     * spring boot, react, tailwindcss 쓸 것
 
+## React생성
 
 ```java
 @Configuration
