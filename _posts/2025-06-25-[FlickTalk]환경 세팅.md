@@ -1,13 +1,13 @@
 ---
-title: "[newmovie]환경 세팅"
+title: "[FlickTalk]환경 세팅"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [Portfolio,newmovie]
+categories: [Portfolio,FlickTalk]
 tags:
-  - [newmovie]
+  - [FlickTalk]
 
-# published: true
+# published: 
 toc: true
 toc_sticky: true
 
@@ -39,7 +39,10 @@ last_modified_at: 2025-06-25 00:43:00 +0900
 ---
 
 ## Django (장고)
-우선 vscode를 준비하고 github에 newmovie라는 이름의 repository를 팠다.
+우선 vscode를 준비하고 github에 ~~newmovie라는 이름의 repository를 팠다.~~
+FlickTalk로 변경~
+
+
 * **Python 기반** 대표적인 웹 프레임워크
 * 로그인, DB연동, 보안 등 기본기능 탑재
 * 이유 있는 선택
@@ -135,11 +138,16 @@ last_modified_at: 2025-06-25 00:43:00 +0900
 > `.` 붙이면 현재 폴더에 바로 생성됨 (안 붙이면 폴더가 한겹 더 생김)
 
 이번에 진행할 프로젝트 이름은 newmovie니까 newmovie로 해서 진행
+FlickTalk으로 하기로 했음
+고민을 열심히 해봤는데 유저 간 영화를 바탕으로 한 의견 나누기, 수다
 (그니까 2중 폴더가 된다는 말)
 
 ### 서버 실행
 1. 실행을 위해 `python manage.py runserver` manage.py가 있는 경로에서 실행을 하면 된다.
 
+` http://127.0.0.1:8000/`
+이 주소에 실행이 되었는지 확인하면 된다.
+![first image of django](../assets/img/250625/FlickTalk-8000.png)
 
 # Django 구성 개념
 
@@ -260,6 +268,16 @@ pip install -r requirements.txt
 
 * git ignore를 만들어줘야 후에 깃에 프로젝트를 올릴 필요가없는 가상환경은 올라가지 않는다.
    * 용량이 너무 크고 git은 소스코드만 추적하는 곳인데, 이런 큰 바이너리 파일(사람이 읽을 수 없는 0과 1로 이루어진 파일)을 올리면 속도가 느려지고 용량도 낭비된다. requirements.txt 파일로 누구든지 그냥 만들수있음. `pip install -r requirements.txt`를 입력하여 requirements.txt 내 패키지와 버젼에 맞춰 설치한다.
+==> 패키지를 삭제하려면 `pip uninstall 삭제하고싶은패키지이름`
+어떤 버젼을 다운 받을 수있는지 보고싶다면?
+`pip install Django==`
+라고 치면 설치가등 버젼 보여줌
+==> 근데 최신버젼은 안먹힘
+`pip index versions Django`
+최신버젼은 이렇게 입력을 해야함!
+업글하려니 파이썬이 3.9. 라인 버젼이라 되지않음 5.2.3은 3.10부터 사용가능하다고!
+
+
 
 venv 라는 이름으로 가상환경을 만들었다면 gitignore 에 자연스럽게 들어가 있지만 아니라면 따로 추가해주어야 한다.
 * 그때 당시 개발에서는 장고 4.2를 썼는데 해당 버젼이 lts(장기적으로 지원하는 버젼) 이 있어서 긴 기간동안 보안 업데이트도 함.
@@ -279,6 +297,8 @@ venv 라는 이름으로 가상환경을 만들었다면 gitignore 에 자연스
 
 프로젝트는 애플리케이션의 집합으로 세팅에 관련된 것들을 진행한다.
 앱은 독립적으로 핵심적 기능을 담당
+
+
 
 앱을 만드는 순서<br>
 1. 앱 생성
