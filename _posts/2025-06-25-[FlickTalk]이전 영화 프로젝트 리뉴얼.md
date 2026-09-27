@@ -3,7 +3,7 @@ title: "[FlickTalk]이전 영화 프로젝트 리뉴얼"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [Portfolio,FlickTalk]
+categories: [Portfolio, FlickTalk]
 tags:
   - [FlickTalk]
 

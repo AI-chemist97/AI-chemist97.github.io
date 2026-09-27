@@ -3,7 +3,7 @@ title: "[gwabang]Spring과 React 연결"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [Portfolio,gwabang]
+categories: [Portfolio, gwabang]
 tags:
   - [gwabang]
 

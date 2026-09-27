@@ -3,7 +3,7 @@ title: "[gwabang]Spring 폴더 구조와 Entity"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [Portfolio,gwabang]
+categories: [Portfolio, gwabang]
 tags:
   - [gwabang]
 

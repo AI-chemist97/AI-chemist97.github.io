@@ -3,7 +3,7 @@ title: "[gwabang]Docker 컨테이너 만들기"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [Portfolio,gwabang]
+categories: [Portfolio, gwabang]
 tags:
   - [gwabang]
 

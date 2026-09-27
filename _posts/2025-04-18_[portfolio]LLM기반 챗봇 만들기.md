@@ -1,9 +1,9 @@
 ---
-title: "[수학기초]기초 통계 개념 공부"
+title: "[Portfolio]LLM 기반 챗봇 만들기"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [portfoilio, frontend]
+categories: [Portfolio, frontend]
 tags:
   - [react]
 

@@ -26,7 +26,7 @@ last_modified_at: 2024-08-06 20:42:00 +0900
 
 제가 참고한 블로그는 여러개가 있는데 그 중 성공의 핵심은 역시 chirpy 기본 튜토리얼인 
 ## 일단 제일 중요한 블로그는 바로
-[chirpy 블로그 튜토리얼](https://ai-chemist97.github.io/posts/getting-started/)
+[chirpy 블로그 튜토리얼](https://chirpy.cotes.page/posts/getting-started/)
 이 글과
 
 세팅에 도움을 준

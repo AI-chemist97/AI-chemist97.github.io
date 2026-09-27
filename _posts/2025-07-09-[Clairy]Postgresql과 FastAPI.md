@@ -3,7 +3,7 @@ title: "[Clairy]Postgresql과 FastAPI"
 excerpt: "AI 문서 정리 웹앱 Clairy 초기 세팅과 기술 스택 정리"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [Portfolio,Clairy]
+categories: [Portfolio, Clairy]
 tags:
   - [Clairy, FastAPI, NextJS, 개발환경, AI, 문서정리]
 published: false

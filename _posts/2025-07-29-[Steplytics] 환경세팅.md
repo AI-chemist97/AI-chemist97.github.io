@@ -3,7 +3,7 @@ title: "[Steplytics]환경 세팅"
 excerpt: "git"
 name: AI-chemist97
 writer: AI-chemist97
-categories: [Portfolio,Steplytics]
+categories: [Portfolio, Steplytics]
 tags:
   - [Steplytics]
 
