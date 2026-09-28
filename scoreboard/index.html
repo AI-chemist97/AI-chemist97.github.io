@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자동매매 수익률</title>
+<meta name="description" content="자동매매 봇별 누적 수익률 전광판 (퍼센트만 공개)">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07090c; --panel:#0e1217; --line:#1c232c; --sub:#7d8894; --text:#e8edf2;
+    --up:#ff4d4f; --down:#3d8bff; --flat:#c9d1d9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;
+       display:flex;flex-direction:column;align-items:center;padding:40px 16px}
+  header{text-align:center;margin-bottom:28px}
+  header h1{font-size:22px;font-weight:700;letter-spacing:.02em}
+  header p{color:var(--sub);font-size:13px;margin-top:6px}
+  .board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;width:100%;max-width:900px}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;position:relative;
+        overflow:hidden}
+  .tile::after{content:"";position:absolute;inset:0;pointer-events:none;
+        background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+  .name{font-size:14px;color:var(--sub);font-weight:500;display:flex;justify-content:space-between}
+  .pct{font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(34px,8vw,52px);margin-top:8px;
+       letter-spacing:.02em;text-shadow:0 0 18px currentColor}
+  .day{font-family:'Orbitron',monospace;font-size:13px;margin-top:4px;color:var(--sub);min-height:1.2em}
+  .up{color:var(--up)} .down{color:var(--down)} .flat{color:var(--flat)}
+  .msg{color:var(--sub);font-size:clamp(20px,5vw,28px);font-family:'Noto Sans KR',sans-serif;text-shadow:none;
+       font-weight:500}
+  footer{margin-top:24px;color:var(--sub);font-size:12px;text-align:center;line-height:1.7}
+  footer a{color:var(--sub)}
+  @media (max-width:520px){.board{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>AUTO-TRADING · LIVE RETURN</h1>
+  <p>봇별 누적 수익률 · 장 마감 후 자동 갱신</p>
+</header>
+
+<main class="board" id="board"></main>
+
+<footer>
+  <div id="stamp">불러오는 중…</div>
+  <div>퍼센트만 공개합니다. 코드·종목·금액은 공개하지 않습니다.</div>
+  <div><a href="https://github.com/AI-chemist97">github.com/AI-chemist97</a> · <a href="/">blog</a></div>
+</footer>
+
+<script>
+// Bots commit data/<key>.json to the public trading-scoreboard repository; this page only reads it.
+const DATA_BASE = "https://raw.githubusercontent.com/AI-chemist97/trading-scoreboard/main/data";
+const REFRESH_MS = 5 * 60 * 1000;
+const BOTS = [
+  { key: "kr",    label: "국내" },
+  { key: "isa",   label: "ISA" },
+  { key: "swing", label: "스윙" },
+];
+
+const board = document.getElementById("board");
+const tiles = {};
+for (const b of BOTS) {
+  const el = document.createElement("section");
+  el.className = "tile";
+  el.innerHTML = `<div class="name"><span>${b.label}</span><span class="upd"></span></div>
+                  <div class="pct msg">불러오는 중</div><div class="day"></div>`;
+  board.appendChild(el);
+  tiles[b.key] = el;
+}
+
+const sign = v => (v > 0 ? "+" : "") + v.toFixed(2) + "%";
+const tone = v => (v > 0 ? "up" : v < 0 ? "down" : "flat");
+
+function showMessage(key, text) {
+  const el = tiles[key];
+  el.querySelector(".pct").className = "pct msg";
+  el.querySelector(".pct").textContent = text;
+  el.querySelector(".day").textContent = "";
+  el.querySelector(".upd").textContent = "";
+}
+
+function render(key, rec) {
+  const el = tiles[key];
+  const pctEl = el.querySelector(".pct");
+  pctEl.className = "pct " + tone(rec.return_pct);
+  pctEl.textContent = sign(rec.return_pct);
+  el.querySelector(".day").textContent = Number.isFinite(rec.day_pct) ? "오늘 " + sign(rec.day_pct) : "";
+  const d = new Date(rec.updated);
+  el.querySelector(".upd").textContent = isNaN(d) ? "" : d.toLocaleString("ko-KR",
+    { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+async function loadOne(key) {
+  const res = await fetch(`${DATA_BASE}/${key}.json?t=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const rec = await res.json();
+  if (rec.pending) return showMessage(key, "준비 중");
+  // Reject malformed records visibly instead of showing a misleading 0%.
+  if (!Number.isFinite(rec.return_pct)) throw new Error("return_pct missing");
+  render(key, rec);
+}
+
+async function load() {
+  const results = await Promise.allSettled(BOTS.map(b => loadOne(b.key)));
+  let failed = 0;
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      failed++;
+      console.error(`[scoreboard] ${BOTS[i].key}:`, r.reason);
+      showMessage(BOTS[i].key, "데이터 없음");
+    }
+  });
+  document.getElementById("stamp").textContent =
+    `마지막 확인 ${new Date().toLocaleTimeString("ko-KR")}` + (failed ? ` · ${failed}개 불러오기 실패` : "");
+}
+
+load();
+setInterval(load, REFRESH_MS);
+</script>
+</body>
+</html>
