@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서버 상태</title>
+<meta name="description" content="서버 CPU·메모리·디스크 사용률 상태판 (사용률만 공개)">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07090c; --panel:#0e1217; --line:#1c232c; --sub:#7d8894; --text:#e8edf2;
+    --ok:#3ddc97; --warn:#ffb020; --bad:#ff4d4f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;
+       display:flex;flex-direction:column;align-items:center;padding:40px 16px}
+  header{text-align:center;margin-bottom:20px}
+  header h1{font-size:22px;font-weight:700;letter-spacing:.02em}
+  header p{color:var(--sub);font-size:13px;margin-top:6px}
+  .state{font-family:'Orbitron',monospace;font-weight:700;font-size:15px;letter-spacing:.12em;margin-bottom:24px;
+         padding:6px 16px;border:1px solid currentColor;border-radius:999px}
+  .board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;width:100%;max-width:640px}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;position:relative;
+        overflow:hidden}
+  .tile::after{content:"";position:absolute;inset:0;pointer-events:none;
+        background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+  .name{font-size:14px;color:var(--sub);font-weight:500}
+  .val{font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(30px,7vw,44px);margin-top:8px;
+       letter-spacing:.02em;text-shadow:0 0 18px currentColor}
+  .msg{color:var(--sub);font-size:clamp(18px,4.5vw,24px);font-family:'Noto Sans KR',sans-serif;text-shadow:none;
+       font-weight:500}
+  .group{width:100%;max-width:640px;margin:26px 0 10px;color:var(--sub);font-size:13px;letter-spacing:.12em}
+  .cval{font-family:'Orbitron',monospace;font-weight:700;font-size:clamp(16px,4.2vw,22px);margin-top:10px;
+        letter-spacing:.04em;text-shadow:0 0 14px currentColor;overflow-wrap:anywhere}
+  .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)} .idle{color:var(--sub)}
+  footer{margin-top:24px;color:var(--sub);font-size:12px;text-align:center;line-height:1.7}
+  footer a{color:var(--sub)}
+  @media (max-width:420px){.board{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>SERVER · STATUS</h1>
+  <p>CPU · 메모리 · 디스크 사용률 · 15분마다 갱신</p>
+</header>
+
+<div class="state idle" id="state">CHECKING</div>
+<main class="board" id="board"></main>
+
+<div class="group" id="botsTitle" hidden>BOTS · DOCKER</div>
+<main class="board" id="bots"></main>
+
+<footer>
+  <div id="stamp">불러오는 중…</div>
+  <div>사용률만 공개합니다. 주소·호스트명·프로세스는 공개하지 않습니다.</div>
+  <div><a href="https://github.com/AI-chemist97">github.com/AI-chemist97</a> · <a href="/">blog</a></div>
+</footer>
+
+<script>
+// A collector on the server commits data/server.json to the public server-status repository; this page only reads it.
+const DATA_URL = "https://raw.githubusercontent.com/AI-chemist97/server-status/main/data/server.json";
+const REFRESH_MS = 5 * 60 * 1000;
+// The collector runs every 15 min; three missed runs mean the server (or its collector) is down.
+const STALE_MIN = 45;
+const WARN_PCT = 80;
+const BAD_PCT = 90;
+
+const TILES = [
+  { key: "cpu_pct",  label: "CPU",    kind: "pct" },
+  { key: "mem_pct",  label: "MEMORY", kind: "pct" },
+  { key: "disk_pct", label: "DISK",   kind: "pct" },
+  { key: "uptime_h", label: "UPTIME", kind: "uptime" },
+];
+
+const board = document.getElementById("board");
+const stateEl = document.getElementById("state");
+const tiles = {};
+for (const t of TILES) {
+  const el = document.createElement("section");
+  el.className = "tile";
+  const name = document.createElement("div");
+  name.className = "name";
+  name.textContent = t.label;
+  const val = document.createElement("div");
+  val.className = "val msg";
+  val.textContent = "불러오는 중";
+  el.append(name, val);
+  board.appendChild(el);
+  tiles[t.key] = val;
+}
+
+const pctTone = v => (v >= BAD_PCT ? "bad" : v >= WARN_PCT ? "warn" : "ok");
+
+function formatUptime(hours) {
+  return hours >= 48 ? `${Math.floor(hours / 24)}d` : `${Math.floor(hours)}h`;
+}
+
+function setTile(key, text, tone, isMessage) {
+  const el = tiles[key];
+  el.className = "val " + tone + (isMessage ? " msg" : "");
+  el.textContent = text;
+}
+
+function setState(text, tone) {
+  stateEl.className = "state " + tone;
+  stateEl.textContent = text;
+}
+
+function showAll(text, stateText, stateTone) {
+  for (const t of TILES) setTile(t.key, text, "idle", true);
+  setState(stateText, stateTone);
+  renderBots({}, true);
+}
+
+const containerTone = state => (state === "running" ? "ok" : state === "restarting" ? "warn" : "bad");
+
+// Rebuild the bot tiles from the record; returns true when every reported container is running.
+function renderBots(containers, stale) {
+  const bots = document.getElementById("bots");
+  bots.replaceChildren();
+  const labels = Object.keys(containers);
+  document.getElementById("botsTitle").hidden = labels.length === 0;
+  for (const label of labels) {
+    const state = String(containers[label]);
+    const el = document.createElement("section");
+    el.className = "tile";
+    const name = document.createElement("div");
+    name.className = "name";
+    name.textContent = label.toUpperCase();
+    const val = document.createElement("div");
+    val.className = "cval " + (stale ? "idle" : containerTone(state));
+    val.textContent = state.toUpperCase();
+    el.append(name, val);
+    bots.appendChild(el);
+  }
+  return labels.every(label => containers[label] === "running");
+}
+
+async function load() {
+  try {
+    const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const rec = await res.json();
+    if (rec.pending) {
+      showAll("준비 중", "WAITING", "idle");
+    } else {
+      // Reject malformed records visibly instead of showing a misleading 0%.
+      for (const t of TILES) {
+        if (!Number.isFinite(rec[t.key])) throw new Error(`${t.key} missing`);
+      }
+      const updated = new Date(rec.updated);
+      if (isNaN(updated)) throw new Error("updated invalid");
+      const ageMin = (Date.now() - updated.getTime()) / 60000;
+      const stale = ageMin > STALE_MIN;
+      for (const t of TILES) {
+        if (t.kind === "pct") setTile(t.key, rec[t.key].toFixed(0) + "%", stale ? "idle" : pctTone(rec[t.key]), false);
+        else setTile(t.key, formatUptime(rec[t.key]), stale ? "idle" : "ok", false);
+      }
+      const botsOk = renderBots(rec.containers || {}, stale);
+      if (stale) setState("NO RESPONSE", "bad");
+      else if (!botsOk) setState("BOT DOWN", "bad");
+      else setState("ONLINE", "ok");
+      document.getElementById("stamp").textContent =
+        `마지막 수집 ${Math.round(ageMin)}분 전 · 확인 ${new Date().toLocaleTimeString("ko-KR")}`;
+      return;
+    }
+  } catch (err) {
+    console.error("[server-status]", err);
+    showAll("데이터 없음", "UNKNOWN", "idle");
+  }
+  document.getElementById("stamp").textContent = `확인 ${new Date().toLocaleTimeString("ko-KR")}`;
+}
+
+load();
+setInterval(load, REFRESH_MS);
+</script>
+</body>
+</html>
